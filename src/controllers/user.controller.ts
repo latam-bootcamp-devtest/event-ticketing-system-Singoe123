@@ -3,11 +3,12 @@ import Event from "../models/event.model";
 import ApiError from "../errors/ApiError";
 import { isValidObjectId } from "mongoose";
 import removeTime from "../utils/removeTime";
+import Ticket from "../models/ticket.model";
 
 
 export const getBookings = async (req: Request, res: Response, next: NextFunction) => {
     try{
-        let { page, pageSize, startDate, endDate, sort } = req.query;
+        let { page, pageSize, startDate, endDate, sort, search } = req.query;
         let { userId } = req.params;
 
         if(!userId){
@@ -28,18 +29,15 @@ export const getBookings = async (req: Request, res: Response, next: NextFunctio
 
         const skip = (pageNum - 1) * limitNum;
 
-        const totalEvents : any = await Event.find({ userId: userId })
-            .populate('eventId')
-            .then((tickets) => {
-                tickets.filter((ticket: any) => {
-                    return ticket.eventId && ticket.eventId.date >= start && ticket.eventId.date <= end;
+        const allEvents = await Ticket.find({ userId: userId }).populate('eventId');
+        const totalEvents = allEvents.filter((ticket: any) => {
+                    console.log(start, ticket.eventId.date, end);
+                    return  ticket.eventId && (!search || ticket.eventId == search) && ticket.eventId.date >= start && ticket.eventId.date <= end;
                 })
                 .sort((a: any, b: any) => {
                     return (order ? a.eventId.date - b.eventId.date : b.eventId.date - a.eventId.date)
                 });
-            })
 
-        console.log(totalEvents);
 
         const events = totalEvents.slice(skip, skip + limitNum);
 
