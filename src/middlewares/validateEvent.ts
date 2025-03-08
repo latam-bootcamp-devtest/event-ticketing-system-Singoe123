@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import ApiError from "../errors/ApiError";
+import removeTime from "../utils/removeTime";
 
 const validateEvent = (req: Request, res: Response,  next: NextFunction) => {
     const { name, date, availableSeats } = req.body;
@@ -10,13 +11,10 @@ const validateEvent = (req: Request, res: Response,  next: NextFunction) => {
         return;
     }
 
-    const requestDate = new Date(date);
-    const today = new Date();
+    const requestDate = removeTime(new Date(date));
+    const today = removeTime(new Date());
 
-    const requestDateString = requestDate.toISOString().split("T")[0];
-    const todayString = today.toISOString().split("T")[0];
-
-    if(isNaN(requestDate.getTime()) || requestDateString < todayString){
+    if(isNaN(requestDate.getTime()) || requestDate < today){
         next(new ApiError(400, 'Date must not be in the past.'));
         return;
     }
