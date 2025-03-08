@@ -1,5 +1,5 @@
 import express from 'express';
-import { createTicket } from "../controllers/ticket.controller";
+import {createTicket, deleteTicket} from "../controllers/ticket.controller";
 import validateTicket from "../middlewares/validateTicket";
 
 const router = express.Router();
@@ -10,7 +10,10 @@ const router = express.Router();
  */
 
 
-// Route to create a new event with validation
+// Route to create a new ticket with validation
 router.post('/', validateTicket, createTicket);
+
+// Route to delete ticket
+router.delete('/:ticketId', deleteTicket);
 
 export default router;
