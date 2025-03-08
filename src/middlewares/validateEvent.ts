@@ -4,7 +4,6 @@ import removeTime from "../utils/removeTime";
 
 const validateEvent = (req: Request, res: Response,  next: NextFunction) => {
     const { name, date, availableSeats } = req.body;
-    console.log(name, date, availableSeats);
 
     if(!name || !date){
         next(new ApiError(400, 'Name and date are required.'));

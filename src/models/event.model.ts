@@ -10,7 +10,7 @@ const EventSchema = new Schema<IEvent>(
     {
         name: { type: String, required: true },
         date: { type: Date, required: true },
-        availableSeats: { type: Number, required: true, min: 1 },
+        availableSeats: { type: Number, required: true, min: 0 },
     }
 )
 

@@ -13,9 +13,7 @@ export const getEvents = async (req: Request, res: Response, next: NextFunction)
 
         const skip = (pageNum - 1) * limitNum;
 
-        console.log(pageNum, limitNum, skip);
         const now =  removeTime(new Date());
-        console.log(now);
 
         const events = await Event.find({ date: {$gte : now}})
             .sort({ date: 1})
@@ -26,7 +24,7 @@ export const getEvents = async (req: Request, res: Response, next: NextFunction)
 
         res.json({
             currentPage: pageNum,
-            pageSize: pageSize,
+            pageSize: limitNum,
             totalPages: Math.ceil(total / limitNum),
             events: events,
         });

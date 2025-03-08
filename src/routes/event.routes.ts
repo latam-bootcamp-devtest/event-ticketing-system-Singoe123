@@ -6,6 +6,7 @@ const router = express.Router();
 
 /**
  * Routes for Event operations
+ * - GET '/'            : Get a page of future events sorted
  * - POST '/'           : Create new event. Uses validation middleware to ensure request data is valid.
  */
 
