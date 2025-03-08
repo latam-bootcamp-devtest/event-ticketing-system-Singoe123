@@ -7,6 +7,7 @@ const router = express.Router();
 /**
  * Routes for Event operations
  * - POST '/'           : Create new ticket. Uses validation middleware to ensure request data is valid.
+ * - DELETE '/:ticketId : Delete a future ticket.
  */
 
 

@@ -7,7 +7,7 @@ import removeTime from "../utils/removeTime";
 
 export const createTicket = async (req: Request, res: Response, next: NextFunction) => {
     try{
-        const {eventId, userId} = req.body;
+        const { eventId, userId } = req.body;
 
         const event = await Event.findById(eventId);
         if (!event) {

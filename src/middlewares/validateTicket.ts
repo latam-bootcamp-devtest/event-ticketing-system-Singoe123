@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import ApiError from "../errors/ApiError";
-import { isValidObjectId} from "mongoose";
+import { isValidObjectId } from "mongoose";
 
 const validateTicket = (req: Request, res: Response,  next: NextFunction) => {
     const { eventId, userId } = req.body;

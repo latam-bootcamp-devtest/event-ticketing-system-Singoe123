@@ -6,6 +6,7 @@ import routeNotFound from "./middlewares/routeNotFound";
 import errorHandler from "./middlewares/errorHandler";
 import eventRoutes from "./routes/event.routes";
 import ticketRoutes from "./routes/ticket.routes";
+import userRoutes from "./routes/user.routes";
 
 // Connect to the MongoDB database
 connectDB();
@@ -37,6 +38,9 @@ app.use('/events', eventRoutes);
 
 // Ticket routes
 app.use('/tickets', ticketRoutes);
+
+// User routes
+app.use('/users', userRoutes);
 
 // Middleware to handle requests to undefined routes (404)
 app.use(routeNotFound);
