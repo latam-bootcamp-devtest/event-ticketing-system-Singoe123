@@ -4,6 +4,7 @@ import connectDB from "./config/db";
 import logger from "./utils/logger";
 import routeNotFound from "./middlewares/routeNotFound";
 import errorHandler from "./middlewares/errorHandler";
+import eventRoutes from "./routes/event.routes";
 
 // Connect to the MongoDB database
 connectDB();
@@ -29,6 +30,11 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 // ROUTES
+
+// Event routes
+app.use('/events', eventRoutes);
+
+
 
 // Middleware to handle requests to undefined routes (404)
 app.use(routeNotFound);
